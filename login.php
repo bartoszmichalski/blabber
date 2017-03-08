@@ -13,28 +13,18 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
     if (is_null($isEmailinDB)) {
         echo'Niezarejestrowany adres email.'; 
     } else { 
-    if  (password_verify($password,$isEmailinDB->getHashedPassword())){
-        echo 'Hasło poprawne.';
-        $_SESSION['user_id']=$isEmailinDB->getId();
-        $_SESSION['user']=$isEmailinDB;
-        $_SESSION['username']=$isEmailinDB->getUserName();
-    //    $connection = close();
-    //    $connection  = null;
-        header("Location: main.php"); 
+        if  (password_verify($password,$isEmailinDB->getHashedPassword())){
+            echo 'Hasło poprawne.';
+            $_SESSION['user_id']=$isEmailinDB->getId();
+            $_SESSION['user']=$isEmailinDB;
+            $_SESSION['username']=$isEmailinDB->getUserName();
+            header("Location: main.php"); 
         } else {
-        echo 'Nieprawidlowy email lub hasło.';}
+        echo 'Nieprawidlowy email lub hasło.';
+        }
     }
 }
 
-
-
-    
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 ?>
 <html>
 <div>

@@ -17,7 +17,8 @@ if (isset($_GET['tweetId'])) {
             
 }
 
-function showTweet() {
+function showTweet()
+{
     
     global $mysql;
     global $tweetId;

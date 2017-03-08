@@ -16,7 +16,7 @@ if (isInSession()) {
         if ($_POST['submit']=='username') {
             if  (trim($_POST['username'])!='') {
                 $username=$_POST['username'];
-                $new_user = new User();
+                $new_user = User::loadUserbyID($mysql, $userId);
                 $new_user->setUsername($username);
                 $new_user->save($mysql);
                 $_SESSION['user']=$new_user;
@@ -32,7 +32,7 @@ if (isInSession()) {
         if ($_POST['submit']=='password')   {
             if (trim($_POST['password'])!='') {
                 $password=$_POST['password'];
-                $new_user = new User();
+                $new_user = User::loadUserbyID($mysql, $userId);
                 $new_user->setHashedPassword($password);
                 $new_user->save($mysql);
                 $_SESSION['user']=$new_user;

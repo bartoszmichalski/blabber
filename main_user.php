@@ -8,7 +8,8 @@ if (isInSession()) {
     $userId=0;
     $tweetsOfUserId=0;
     
-    function showTweets() {
+    function showTweets()
+    {
         global $mysql;
         global $userId;
         global $tweetsOfUserId;
@@ -56,7 +57,8 @@ if (isInSession()) {
         }
         echo '</table></body></html>';
 }
-    function showNewMailOption () {
+    function showNewMailOption ()
+    {
         global $userId;
         global $tweetsOfUserId;
         if ($userId!=$tweetsOfUserId) {

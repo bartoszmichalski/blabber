@@ -14,7 +14,7 @@ if (isInSession()) {
         if (trim($_POST['new_mail'])!=''){
             $new_mail_text=$_POST['new_mail'];
             $newMail = new Mail($mysql);
-            //$userid =$userId;  //dodać ID zalogowanego operatora
+            
             $newMail->setText($new_mail_text);
             $newMail->setSenderUserId($userId);
             $newMail->setReceiverUserId($sendMailToUserId);
@@ -22,7 +22,6 @@ if (isInSession()) {
             $newMail->setWasRead(0);
             $newMail->save($mysql);
             echo ('<h4>Wiadomość wysłana.</h4>');
-            //var_dump($new_tweet);
         }
     }
     $senderUser=  User::loadUserbyID($mysql, $userId);
