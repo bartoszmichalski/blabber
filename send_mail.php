@@ -4,10 +4,6 @@ include_once 'library.php';
 
 session_start();
 if (isInSession()) {
-    
-    
-    
-    
     if (isset($_GET['sendMailToUserId'])) {
         $sendMailToUserId=$_GET['sendMailToUserId'];
         $_SESSION['sendMailToUserId']=$sendMailToUserId;
@@ -29,10 +25,6 @@ if (isInSession()) {
             //var_dump($new_tweet);
         }
     }
-    
-    
-    
-    
     $senderUser=  User::loadUserbyID($mysql, $userId);
     $senderUserName=$senderUser->getUserName();
     $receiverUser=  User::loadUserbyID($mysql, $sendMailToUserId);

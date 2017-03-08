@@ -17,24 +17,17 @@ if (isset($_GET['tweetId'])) {
             
 }
 
-
-
 function showTweet() {
     
     global $mysql;
     global $tweetId;
     
     $userId=$_SESSION['user_id'];
-    
-//    echo ('tweetId:'.$tweetId);
-//    echo ('userId:'.$userId);
-    
-    
     if ($_SERVER['REQUEST_METHOD']==='POST') {
         if (trim($_POST['new_comment'])!=''){
             $new_comment_text=$_POST['new_comment'];
             $new_comment = new Comment($mysql);
-            $userid =$userId;  //dodać ID zalogowanego operatora
+            $userid =$userId;  
             $new_comment->setText($new_comment_text);
             $new_comment->setUserId($userid);
             $new_comment->setTweetId($tweetId);
@@ -44,33 +37,20 @@ function showTweet() {
         }
     }
     
-    
-
-
-//    if (//$_SERVER['REQUEST_METHOD']==='GET' && 
-//    isset($_GET['tweetId'])) {
-//        $tweetId = $_GET['tweetId'];
-
     $tweet = Tweet::loadTweetbyID($mysql, $tweetId);
-    //var_dump($tweet);
+    
     echo '<table border="1">';
     echo "<th>ID</th><th>Autor</th><th>Tweet</th><th>Utworzono</th> ";
     $authorOftweet=  User::loadUserbyID($mysql, $tweet->getUserid());
-        //foreach ($tweet as  $tweets) {
-
-                echo sprintf(
-                "<tr><td>%d</td><td>%s</td> <td>%s</td><td>%s</td>"
-                    . "</tr>",
-                //User::loadUserbyID($mysql, $tweets->getId()),
-                $tweet->getId(),
-                $authorOftweet->getUserName(),
-                $tweet->getText(),
-                date("Y-m-d H:i:s",$tweet->getCreationDate())
-                );
-            //var_dump($item['id']);
-           // }
-    //}
-        echo '</table>';
+    echo sprintf(
+        "<tr><td>%d</td><td>%s</td> <td>%s</td><td>%s</td>"
+            . "</tr>",
+        $tweet->getId(),
+        $authorOftweet->getUserName(),
+        $tweet->getText(),
+        date("Y-m-d H:i:s",$tweet->getCreationDate())
+    );
+    echo '</table>';
     
     $comments = Comment::loadCommentbyTweetID($mysql, $tweetId);
     if (!is_null($comments)) {
@@ -92,15 +72,14 @@ function showTweet() {
                 );
             //var_dump($item['id']);
         }
-    //}
         echo '</table>';    
         
     }
-        }
+}
     
 $_SESSION['tweetId']=$tweetId;
-    showTweet();
-    ?>
+showTweet();
+?>
 <html>
 <div>
     <form class="movie_form" method="post" action="#">
