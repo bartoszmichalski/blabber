@@ -17,7 +17,7 @@ class Connection
     public function __construct(mysqli $mysqli)
     {
         if ($mysqli->connect_error) {
-            die('Nie udane połączenie. Błąd: ' . $mysqli->connect_error);
+            die('Nieudane połączenie. Błąd: ' . $mysqli->connect_error);
         }
         $this->mysqli = $mysqli;
     }

@@ -14,31 +14,43 @@ class User {
         $this->email='';
         $this->hashedPassword='';
     }
+    
     public function setUsername($username)
     {
-        $this->username=$username;
-        
+        $this->username=$username;        
     }
-    public function setEmail($email) {
-        $this->email=$email;
-        
+    
+    public function setEmail($email)
+    {
+        $this->email=$email;        
     }
-    public function setHashedPassword($newPassword){
+    
+    public function setHashedPassword($newPassword)
+    {
         $newHashedPassword=  password_hash($newPassword, PASSWORD_BCRYPT);
         $this->hashedPassword=$newHashedPassword;
     }
-    public function getId(){
+    
+    public function getId()
+    {
         return $this->id;
     }
-    public function getUserName(){
+    
+    public function getUserName()
+    {
         return $this->username;
     }
-    public function getEmail(){
+    
+    public function getEmail()
+    {
         return $this->email;
     }
-    public function getHashedPassword(){
+    
+    public function getHashedPassword()
+    {
         return $this->hashedPassword;
     }
+    
     public function save(mysqli $connection)
     {
         if ($this->id==-1) {
@@ -57,7 +69,9 @@ class User {
         }
         return false;
     }
-    static public function loadUserbyID(mysqli $connection, $id) {
+    
+    static public function loadUserbyID(mysqli $connection, $id)
+    {
         $sql=sprintf("SELECT * FROM Users WHERE id=%d", $id);
         $result =$connection->query($sql);
         if ($result==true && $result->num_rows ==1) {
@@ -67,11 +81,15 @@ class User {
             $loadedUser->username=$row['username'];
             $loadedUser->hashedPassword=$row['hashed_password'];
             $loadedUser->email=$row['email'];
+    
             return $loadedUser;
         }
+        
         return null;
     }
-    static function loadAllUsers(mysqli $connection) {
+    
+    static function loadAllUsers(mysqli $connection)
+    {
         $sql="SELECT * FROM Users";
         $ret = [];
         $result =$connection->query($sql);
@@ -85,10 +103,12 @@ class User {
                 $ret[]=$loadedUser;
             }
         }
-        return $ret;
         
+        return $ret;        
     }
-    static public function loadUserbyEmail(mysqli $connection, $email) {
+    
+    static public function loadUserbyEmail(mysqli $connection, $email)
+    {
         $sql=sprintf("SELECT * FROM Users WHERE email='%s'", $email);
         $result =$connection->query($sql);
         if ($result==true && $result->num_rows ==1) {
@@ -100,9 +120,12 @@ class User {
             $loadedUser->email=$row['email'];
             return $loadedUser;
         }
+        
         return null;
     }
-    public function delete(mysqli $connection){
+    
+    public function delete(mysqli $connection)
+    {
         if($this->id != -1){
             $sql = "DELETE FROM Users WHERE id=$this->id";
             $result = $connection->query($sql);
@@ -110,12 +133,10 @@ class User {
                 $this->id = -1;
                 return true;
             }
-        return false;
-
+    
+            return false;
         }
  
         return true;
     }
-    
-
 }
